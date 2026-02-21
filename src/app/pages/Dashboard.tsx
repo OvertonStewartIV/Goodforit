@@ -52,14 +52,22 @@ const AvatarItem = ({ src, name, isSearch = false, onClick }: { src?: string, na
   </button>
 );
 
-const TransactionItem = ({ icon: Icon, title, date, amount, value, isPositive }: { icon: any, title: string, date: string, amount: string, value: string, isPositive?: boolean }) => (
-  <div className="flex items-center justify-between py-3 cursor-pointer hover:bg-white/5 px-2 -mx-2 rounded-xl transition-colors">
+const TransactionItem = ({ icon: Icon, title, date, amount, value, isPositive, isContract, onClick }: { icon: any, title: string, date: string, amount: string, value: string, isPositive?: boolean, isContract?: boolean, onClick?: () => void }) => (
+  <div onClick={onClick} className="flex items-center justify-between py-3 cursor-pointer hover:bg-white/5 px-2 -mx-2 rounded-xl transition-colors">
     <div className="flex items-center gap-4">
-      <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white">
+      <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white relative">
         <Icon size={20} />
+        {isContract && (
+          <div className="absolute -top-1 -right-1 w-4 h-4 bg-lime-400 rounded-full flex items-center justify-center text-black border border-black">
+            <span className="text-[8px] font-bold">S</span>
+          </div>
+        )}
       </div>
       <div>
-        <h4 className="font-bold text-white text-sm">{title}</h4>
+        <h4 className="font-bold text-white text-sm flex items-center gap-2">
+          {title}
+          {isContract && <span className="text-[10px] bg-neutral-800 text-lime-400 px-1.5 py-0.5 rounded border border-neutral-700">CONTRACT</span>}
+        </h4>
         <p className="text-xs text-neutral-500">{date}</p>
       </div>
     </div>
@@ -217,16 +225,12 @@ export default function Dashboard() {
       <div className="mb-8">
         <h3 className="text-lg font-bold mb-4 text-white">Recents</h3>
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-          <AvatarItem 
-            name="Search" 
-            isSearch 
-            onClick={() => navigate('/app/search')} 
-          />
-          <AvatarItem name="Lucy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/lucy', { state: { avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&fit=crop" } })} />
-          <AvatarItem name="Jake" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/jake', { state: { avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&fit=crop" } })} />
-          <AvatarItem name="Alex" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/alex', { state: { avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&fit=crop" } })} />
-          <AvatarItem name="Den" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/den', { state: { avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&fit=crop" } })} />
-          <AvatarItem name="Sarah" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/sarah', { state: { avatar: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&fit=crop" } })} />
+          <AvatarItem name="Search" isSearch onClick={() => navigate('/app/search')} />
+          <AvatarItem name="Keisha" src="https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/keisha', { state: { avatar: "https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=200&fit=crop" } })} />
+          <AvatarItem name="Wei" src="https://images.unsplash.com/photo-1633177188754-980c2a6b6266?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/wei', { state: { avatar: "https://images.unsplash.com/photo-1633177188754-980c2a6b6266?w=200&fit=crop" } })} />
+          <AvatarItem name="Priya" src="https://images.unsplash.com/photo-1667382137969-a11fd256717d?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/priya', { state: { avatar: "https://images.unsplash.com/photo-1667382137969-a11fd256717d?w=200&fit=crop" } })} />
+          <AvatarItem name="Jamal" src="https://images.unsplash.com/photo-1570158268183-d296b2892211?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/jamal', { state: { avatar: "https://images.unsplash.com/photo-1570158268183-d296b2892211?w=200&fit=crop" } })} />
+          <AvatarItem name="Maria" src="https://images.unsplash.com/photo-1644044671706-95314b2bbb9a?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/maria', { state: { avatar: "https://images.unsplash.com/photo-1644044671706-95314b2bbb9a?w=200&fit=crop" } })} />
         </div>
       </div>
 
@@ -243,11 +247,13 @@ export default function Dashboard() {
           />
           <TransactionItem 
             icon={Wallet} 
-            title="Receive USDT" 
+            title="Loan Offer" 
             date="Jun 1, 08:02 AM" 
-            amount="+0.021 ETH" 
-            value="78,36 USDT" 
+            amount="+500 USDC" 
+            value="Pending" 
             isPositive
+            isContract
+            onClick={() => navigate('/app/contract/123')}
           />
           <TransactionItem 
             icon={ShieldCheck} 

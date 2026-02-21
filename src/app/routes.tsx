@@ -17,6 +17,7 @@ import LoanDetails from "./pages/LoanDetails";
 import UserProfile from "./pages/UserProfile";
 import Profile from "./pages/Profile";
 import Contract from "./pages/Contract";
+import ContractDetails from "./pages/ContractDetails";
 import Settings from "./pages/Settings";
 import ExchangeSettings from "./pages/ExchangeSettings";
 import Safety from "./pages/Safety";
@@ -107,6 +108,10 @@ export const router = createBrowserRouter([
       {
         path: "contract",
         element: <Contract />,
+      },
+      {
+        path: "contract/:id",
+        element: <ContractDetails />,
       },
       {
         path: "vouch",
