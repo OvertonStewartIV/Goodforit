@@ -1,7 +1,9 @@
-import { createBrowserRouter, Navigate, Outlet } from "react-router";
+import { createMemoryRouter, Navigate, Outlet } from "react-router";
 import Layout from "./components/Layout";
 import RequireOnboarding from "./components/RequireOnboarding";
 import Onboarding from "./pages/Onboarding";
+import ImpactMap from "./pages/ImpactMap";
+import Login from "./pages/Login";
 import SearchPage from "./pages/SearchPage";
 import ConnectWorld from "./pages/ConnectWorld";
 import TrustIncome from "./pages/TrustIncome";
@@ -16,7 +18,9 @@ import Loans from "./pages/Loans";
 import LoanDetails from "./pages/LoanDetails";
 import UserProfile from "./pages/UserProfile";
 import Profile from "./pages/Profile";
+import TierStatus from "./pages/TierStatus";
 import Contract from "./pages/Contract";
+
 import ContractDetails from "./pages/ContractDetails";
 import Settings from "./pages/Settings";
 import ExchangeSettings from "./pages/ExchangeSettings";
@@ -28,10 +32,14 @@ import Rewards from "./pages/Rewards";
 import Vouch from "./pages/Vouch";
 import Request from "./pages/Request";
 
-export const router = createBrowserRouter([
+export const router = createMemoryRouter([
   {
     path: "/",
     element: <Onboarding />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/app",
@@ -60,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: "home",
         element: <Dashboard />,
+      },
+      {
+        path: "impact-map",
+        element: <ImpactMap />,
       },
       {
         path: "deals",
@@ -106,6 +118,10 @@ export const router = createBrowserRouter([
         element: <UserProfile />,
       },
       {
+        path: "tier-status",
+        element: <TierStatus />,
+      },
+      {
         path: "contract",
         element: <Contract />,
       },
@@ -146,5 +162,9 @@ export const router = createBrowserRouter([
         element: <Rewards />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
   },
 ]);

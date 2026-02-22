@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Settings, Share2, Award, QrCode, CreditCard, ChevronRight, Copy, Users, Star, Shield, Zap } from 'lucide-react';
+import { Settings, Share2, Award, QrCode, CreditCard, ChevronRight, Copy, Users, Star, Shield, Zap, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 const Badge = ({ icon: Icon, bgClass, textClass, label, glow = false }: { icon: any, bgClass: string, textClass: string, label: string, glow?: boolean }) => (
@@ -83,13 +83,20 @@ export default function Profile() {
           <p className="text-neutral-500 text-sm mb-6 font-medium">Community Builder • Member since 2023</p>
           
           <div className="flex justify-center gap-3 mb-8">
-            <span className="bg-lime-400 text-black px-4 py-1.5 rounded-full text-xs font-bold shadow-[0_0_15px_rgba(163,230,53,0.3)] border border-lime-300">
-              {user.trustScore}% Trust Score
-            </span>
-            <span className="bg-neutral-800 text-white px-4 py-1.5 rounded-full text-xs font-bold border border-neutral-700 flex items-center gap-2">
-              <Zap size={12} className="text-yellow-400 fill-yellow-400" />
-              Top Contributor
-            </span>
+            <button 
+              onClick={() => navigate('/app/tier-status')}
+              className="bg-lime-400 text-black px-4 py-1.5 rounded-full text-xs font-bold shadow-[0_0_15px_rgba(163,230,53,0.3)] border border-lime-300 hover:scale-105 transition-transform flex items-center gap-1.5"
+            >
+              <ShieldCheck size={14} />
+              Tier 2 Status
+            </button>
+            <button
+               onClick={() => navigate('/app/tier-status')}
+               className="bg-neutral-800 text-white px-4 py-1.5 rounded-full text-xs font-bold border border-neutral-700 flex items-center gap-1.5 hover:bg-neutral-700 transition-colors"
+            >
+              <Star size={12} className="text-yellow-400 fill-yellow-400" />
+              4.6 (8 Reviews)
+            </button>
           </div>
 
           {/* Wallet / QR */}

@@ -104,9 +104,10 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = React.useState({
     name: 'Alex',
-    balance: 94, // Changed from trustScore for display, but effectively the same visual spot
+    balance: 94, 
     level: 'Trust Keeper',
-    country: 'NG'
+    country: 'NG',
+    impactScore: 82 // Default
   });
 
   React.useEffect(() => {
@@ -157,29 +158,32 @@ export default function Dashboard() {
         </button>
       </header>
 
-      {/* Main Balance Area */}
+          {/* Main Balance Area */}
       <div className="mb-10 text-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="inline-block"
         >
-          <span className="text-neutral-500 text-sm font-medium mb-1 block">Trust Balance • GFI</span>
+          <span className="text-neutral-500 text-sm font-medium mb-1 block">Your Impact Balance</span>
           <h1 className="text-6xl font-bold tracking-tighter text-white mb-2">
-            {user.balance}<span className="text-2xl text-neutral-500">.00</span>
+            {user.balance}<span className="text-2xl text-neutral-500">IGS</span>
           </h1>
-          <div className="flex items-center justify-center gap-2 text-lime-400 bg-lime-400/10 py-1 px-3 rounded-full mx-auto w-fit">
+          <button 
+             onClick={() => navigate('/app/impact-map')}
+             className="flex items-center justify-center gap-2 text-lime-400 bg-lime-400/10 py-2 px-4 rounded-full mx-auto w-fit hover:bg-lime-400/20 transition-colors"
+          >
             <TrendingUp size={14} />
-            <span className="text-xs font-bold">+2.4% this week</span>
-          </div>
+            <span className="text-xs font-bold">View Community Growth Map</span>
+          </button>
         </motion.div>
       </div>
 
       {/* Action Buttons */}
       <div className="flex justify-center gap-6 mb-10">
-        <ActionButton icon={ArrowUpRight} label="Vouch" variant="primary" to="/app/vouch" />
+        <ActionButton icon={ArrowUpRight} label="Fund" variant="primary" to="/app/vouch" />
         <ActionButton icon={ArrowDownLeft} label="Request" variant="primary" to="/app/request" />
-        <ActionButton icon={Wallet} label="Wallet" variant="white" to="/app/topup" />
+        <ActionButton icon={Wallet} label="Donate" variant="white" to="/app/topup" />
       </div>
 
       {/* Analytics Blocks */}
@@ -194,20 +198,20 @@ export default function Dashboard() {
         <div className="grid grid-cols-2 gap-3">
           <div className="col-span-2">
              <BlockCard 
-               label="Trust Income" 
-               value="$96k" 
+               label="Social ROI" 
+               value="+18%" 
                trend="up" 
                color="bg-lime-400" 
-               subValue="Total vouched value"
-               onClick={() => navigate('/app/trust-income')}
+               subValue="Inclusive Growth Return"
+               onClick={() => navigate('/app/impact-map')}
              />
           </div>
           <BlockCard 
-            label="Deals" 
-            value="901" 
+            label="Lives" 
+            value="34" 
             trend="up" 
             color="bg-neutral-800" 
-            subValue="Successful loans"
+            subValue="People supported"
             onClick={() => navigate('/app/deals')}
           />
           <BlockCard 
@@ -221,46 +225,45 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Recents */}
+      {/* Featured Non-Profits */}
       <div className="mb-8">
-        <h3 className="text-lg font-bold mb-4 text-white">Recents</h3>
+        <h3 className="text-lg font-bold mb-4 text-white">Featured Non-Profits</h3>
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
           <AvatarItem name="Search" isSearch onClick={() => navigate('/app/search')} />
-          <AvatarItem name="Keisha" src="https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/keisha', { state: { avatar: "https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=200&fit=crop" } })} />
-          <AvatarItem name="Wei" src="https://images.unsplash.com/photo-1633177188754-980c2a6b6266?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/wei', { state: { avatar: "https://images.unsplash.com/photo-1633177188754-980c2a6b6266?w=200&fit=crop" } })} />
-          <AvatarItem name="Priya" src="https://images.unsplash.com/photo-1667382137969-a11fd256717d?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/priya', { state: { avatar: "https://images.unsplash.com/photo-1667382137969-a11fd256717d?w=200&fit=crop" } })} />
-          <AvatarItem name="Jamal" src="https://images.unsplash.com/photo-1570158268183-d296b2892211?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/jamal', { state: { avatar: "https://images.unsplash.com/photo-1570158268183-d296b2892211?w=200&fit=crop" } })} />
-          <AvatarItem name="Maria" src="https://images.unsplash.com/photo-1644044671706-95314b2bbb9a?w=100&h=100&fit=crop" onClick={() => navigate('/app/user/maria', { state: { avatar: "https://images.unsplash.com/photo-1644044671706-95314b2bbb9a?w=200&fit=crop" } })} />
+          <AvatarItem name="GreenEarth" src="https://images.unsplash.com/photo-1765381711132-102b53e6410d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGVhbiUyMG5hdHVyZSUyMGVjbyUyMGxvZ298ZW58MXx8fHwxNzcxNzMzODUwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" onClick={() => navigate('/app/user/greenearth')} />
+          <AvatarItem name="EduFirst" src="https://images.unsplash.com/photo-1695556575317-9d49e3dccf75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlZHVjYXRpb24lMjBzY2hvb2wlMjB1bml2ZXJzaXR5JTIwbG9nb3xlbnwxfHx8fDE3NzE3MzM4NDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" onClick={() => navigate('/app/user/edufirst')} />
+          <AvatarItem name="CommCare" src="https://images.unsplash.com/photo-1617080090911-91409e3496ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kcyUyMGhlYXJ0JTIwbG92ZSUyMGNvbW11bml0eSUyMGxvZ298ZW58MXx8fHwxNzcxNzMzODQ0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" onClick={() => navigate('/app/user/commcare')} />
+          <AvatarItem name="CivicRight" src="https://images.unsplash.com/photo-1656168203484-e5e09e9f3510?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxub24lMjBwcm9maXQlMjBvcmdhbml6YXRpb24lMjBsb2dvJTIwaWNvbiUyMHNpbXBsZXxlbnwxfHx8fDE3NzE3MzM4MzN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" onClick={() => navigate('/app/user/civicright')} />
         </div>
       </div>
 
       {/* Transactions */}
       <div>
-        <h3 className="text-lg font-bold mb-4 text-white">Transactions</h3>
+        <h3 className="text-lg font-bold mb-4 text-white">Impact History</h3>
         <div className="bg-neutral-900 rounded-[2rem] p-4">
           <TransactionItem 
             icon={Bitcoin} 
-            title="Sell Bitcoin" 
+            title="Crypto Donation" 
             date="Jun 8, 08:02 AM" 
             amount="-0.00050 BTC" 
             value="31,33 USDT" 
           />
           <TransactionItem 
             icon={Wallet} 
-            title="Loan Offer" 
+            title="Grant Allocation" 
             date="Jun 1, 08:02 AM" 
             amount="+500 USDC" 
-            value="Pending" 
+            value="Active" 
             isPositive
             isContract
             onClick={() => navigate('/app/contract/123')}
           />
           <TransactionItem 
             icon={ShieldCheck} 
-            title="Vouch Reward" 
+            title="Impact Reward" 
             date="May 28, 14:20 PM" 
-            amount="+50 Credits" 
-            value="Trust Building" 
+            amount="+5 Credits" 
+            value="Community Score" 
             isPositive
           />
         </div>

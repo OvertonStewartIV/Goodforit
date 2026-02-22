@@ -117,7 +117,16 @@ export default function Settings() {
           color="text-yellow-400"
         />
         
-        <button className="w-full py-4 mt-8 rounded-xl border border-red-900/50 text-red-500 font-bold text-sm hover:bg-red-900/10 transition-colors flex items-center justify-center gap-2">
+        <button 
+          onClick={() => {
+            if (window.confirm('Are you sure you want to log out?')) {
+              localStorage.removeItem('hasOnboarded');
+              localStorage.removeItem('userProfile');
+              navigate('/');
+            }
+          }}
+          className="w-full py-4 mt-8 rounded-xl border border-red-900/50 text-red-500 font-bold text-sm hover:bg-red-900/10 transition-colors flex items-center justify-center gap-2"
+        >
           <LogOut size={16} />
           Log Out
         </button>

@@ -1,8 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Lock, AlertCircle, CheckCircle2 } from 'lucide-react';
-import { motion } from 'motion/react';
 
-export type TierLevel = 1 | 2 | 3;
+export type TierLevel = 1 | 2 | 3 | 4 | 5;
 
 interface TierInfo {
   level: TierLevel;
@@ -17,22 +16,36 @@ export const TIERS: Record<TierLevel, TierInfo> = {
     level: 1,
     name: "Newcomer",
     limit: 500,
-    requirements: ["Verified Email", "Phone Number"],
+    requirements: ["Verified Identity"],
     color: "text-neutral-400"
   },
   2: {
     level: 2,
     name: "Trust Keeper",
     limit: 5000,
-    requirements: ["3 Successful Repayments", "Verified ID", "No Disputes (60d)"],
+    requirements: ["4.0+ Star Rating", "5+ Settled Transactions"],
     color: "text-lime-400"
   },
   3: {
     level: 3,
     name: "Community Pillar",
     limit: 25000,
-    requirements: ["10+ Successful Repayments", "5 Active Vouchers", "Trust Score > 95"],
+    requirements: ["4.8+ Star Rating", "20+ Settled Transactions", "98% On-Time Payment"],
     color: "text-purple-400"
+  },
+  4: {
+    level: 4,
+    name: "Protocol Guardian",
+    limit: 100000,
+    requirements: ["4.9+ Star Rating", "50+ Settled Transactions", "100% On-Time Payment"],
+    color: "text-amber-400"
+  },
+  5: {
+    level: 5,
+    name: "Network Legend",
+    limit: 500000,
+    requirements: ["5.0 Star Rating", "100+ Settled Transactions", "Community Vouched (5x)"],
+    color: "text-cyan-400"
   }
 };
 
@@ -72,10 +85,9 @@ export const TierLimitCard = ({ currentLevel, amount }: { currentLevel: TierLeve
 
       {/* Progress Bar */}
       <div className="h-2 bg-neutral-800 rounded-full overflow-hidden mb-2">
-        <motion.div 
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          className={`h-full rounded-full ${isOverLimit ? 'bg-red-500' : 'bg-lime-400'}`}
+        <div 
+          style={{ width: `${progress}%` }}
+          className={`h-full rounded-full transition-all duration-500 ${isOverLimit ? 'bg-red-500' : 'bg-lime-400'}`}
         />
       </div>
 

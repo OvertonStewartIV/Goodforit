@@ -1,12 +1,33 @@
-import React from 'react';
-import { Outlet, NavLink } from 'react-router';
+import React, { useRef, useLayoutEffect } from 'react';
+import { Outlet, NavLink, useLocation } from 'react-router';
 import { Home, PlusCircle, Users, HandCoins, User, Globe, PenTool } from 'lucide-react';
 
 export default function Layout() {
+  const location = useLocation();
+  const mainRef = useRef<HTMLDivElement>(null);
+  const scrollPositions = useRef<{ [key: string]: number }>({});
+
+  useLayoutEffect(() => {
+    if (mainRef.current) {
+      const savedPosition = scrollPositions.current[location.key] || 0;
+      mainRef.current.scrollTop = savedPosition;
+    }
+  }, [location.key]);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (location.key) {
+      scrollPositions.current[location.key] = e.currentTarget.scrollTop;
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-black text-white font-sans overflow-hidden max-w-md mx-auto shadow-2xl border-x border-neutral-800">
       {/* Good For It Branding Header can go here if needed, but nav is bottom */}
-      <main className="flex-1 overflow-y-auto pb-24 scrollbar-hide bg-gradient-to-b from-neutral-900 to-black">
+      <main 
+        ref={mainRef}
+        onScroll={handleScroll}
+        className="flex-1 overflow-y-auto pb-24 scrollbar-hide bg-gradient-to-b from-neutral-900 to-black"
+      >
         <Outlet />
       </main>
       
